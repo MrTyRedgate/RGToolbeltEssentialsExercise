@@ -903,6 +903,7 @@ CREATE TABLE Customers.Customer (
     DateOfBirth DATE,
     Phone NVARCHAR(20),
     Address NVARCHAR(200),
+    LastLoginDate DATETIME NULL,  -- DRIFT: Added by security team for fraud detection (2025-09-15, never tracked)
     CONSTRAINT PK_Customer_CustomerID PRIMARY KEY (CustomerID),
     CONSTRAINT UQ_Customer_Email UNIQUE (Email)
 );
@@ -955,6 +956,16 @@ CREATE TABLE Inventory.MaintenanceLog (
     MaintenanceStatus NVARCHAR(20) DEFAULT 'Pending',
     CONSTRAINT PK_MaintenanceLog_LogID PRIMARY KEY (LogID),
     CONSTRAINT FK_MaintenanceLog_FlightID FOREIGN KEY (FlightID) REFERENCES Inventory.Flight(FlightID)
+);
+
+-- DRIFT: Temporary table created for Q3 2025 capacity report - never cleaned up
+CREATE TABLE Inventory.TempFlightCache (
+    CacheID INT IDENTITY(1,1),
+    FlightID INT,
+    CachedPrice DECIMAL(10, 2),
+    CachedSeats INT,
+    CacheDate DATETIME DEFAULT GETDATE(),
+    CONSTRAINT PK_TempFlightCache PRIMARY KEY (CacheID)
 );
 GO
 
