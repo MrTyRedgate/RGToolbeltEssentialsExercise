@@ -19,12 +19,12 @@ Welcome to the SQL Toolbelt Essentials practical exercise. This guide will walk 
 
 ### Step 2: Connect to SQL Server
 
-1. Open **SQL Server Management Studio (SSMS)**
+1. Open **SQL Server Management Studio 18.10 (SSMS)**
 
 2. In the Connect dialog:
-   - **Server name:** `localhost\SQLEXPRESS`
+   - **Server name:** `REDGATE-DEMO\SQLEXPRESS`
    - **Authentication:** Windows Authentication
-   - You may need to tick **Trust server certificate**
+   - Tick **Trust server certificate** (if applicable)
    - Click **Connect**
 
 ### Step 3: Run the Database Setup Script
@@ -32,6 +32,8 @@ Welcome to the SQL Toolbelt Essentials practical exercise. This guide will walk 
 1. In SSMS, go to **File > Open > File**
 
 2. Navigate to `C:\Temp\ToolbeltEssentialsExercise\` and open `CreateSimpleDBDatabases.sql`
+   
+   *Alternatively: Open a new query window and copy-paste the contents of the file*
 
 3. Click **Execute** (or press F5)
 
@@ -79,7 +81,7 @@ By the end of this exercise, you will be familiar with:
 
 **Objective:** Make schema changes and commit them to source control
 
-1. In SSMS, open `Exercises.sql` from this folder
+1. In SSMS, go to **File > Open > File** and open `Exercises.sql` from `C:\Temp\ToolbeltEssentialsExercise\`
 
 2. Run the tasks in order (1, 2, 3) to make schema changes to `SimpleDB_Dev1`
 
@@ -99,7 +101,7 @@ By the end of this exercise, you will be familiar with:
 
 2. In the comparison wizard:
    - **Source:** Select **SQL Source Control**, then choose `SimpleDB_Dev1` with revision **Latest (HEAD)**
-   - **Target:** Select **Database**, choose server `(local)\SQLEXPRESS`, tick **Trust certificate**, then select `SimpleDB_Test`
+   - **Target:** Select **Database**, choose server `REDGATE-DEMO\SQLEXPRESS`, tick **Trust certificate**, then select `SimpleDB_Test`
 
 3. Click **Compare Now**
 
@@ -145,6 +147,54 @@ By the end of this exercise, you will be familiar with:
 5. Generate documentation
 
 6. Review the output - tables, relationships, stored procedures are all documented
+
+---
+
+### Bonus Exercise: Link Dev2 to the Same Repository
+
+**Objective:** Link a second database to an existing source control repository and sync changes
+
+1. In SSMS Object Explorer, right-click on `SimpleDB_Dev2`
+
+2. Select **SQL Source Control > Link Database to Source Control...**
+
+3. Link it to the **same repository folder** you used for `SimpleDB_Dev1`
+
+4. Once linked, go to the **Get Latest** tab
+
+5. Pull the latest changes from source control to update `SimpleDB_Dev2` with the schema changes from Dev1
+
+6. Verify that Dev2 now has the Socials table, ListSocials procedure, and WorkPhone column
+
+---
+
+### Bonus Exercise: Rescue Prod Drift into Source Control
+
+**Objective:** Bring untracked production changes back under version control
+
+In Exercise C, you may have noticed Prod has some unexpected differences. This simulates a common real-world scenario where someone made "emergency" changes directly to production without going through source control.
+
+1. Open **SQL Compare**
+
+2. Set up a **reverse comparison**:
+   - **Source:** `SimpleDB_Prod` database
+   - **Target:** `SimpleDB_Dev1` database
+
+3. Click **Compare Now**
+
+4. Identify the drift - you should see:
+   - `Customers.Customer` has an extra column (`LastLoginDate`)
+   - `Inventory.TempFlightCache` is an extra table
+
+5. **Decide what to do:**
+   - Is the `LastLoginDate` column valuable? (Yes - security team needs it)
+   - Is `TempFlightCache` needed? (No - it's leftover from an old report)
+
+6. Select only `Customers.Customer` and deploy to Dev1
+
+7. Return to SQL Source Control and **commit** the rescued change
+
+8. Now your source control reflects the legitimate production change, and you can clean up the unnecessary `TempFlightCache` table from Prod later
 
 ---
 
