@@ -88,14 +88,14 @@ CREATE TABLE Customers.Customer (
 CREATE TABLE Customers.LoyaltyProgram (
     ProgramID INT IDENTITY(1,1),
     ProgramName NVARCHAR(50) NOT NULL,
-    PointsMultiplier DECIMAL(3, 2) DEFAULT 1.0,
+    PointsMultiplier DECIMAL(3, 2) CONSTRAINT DF_LoyaltyProgram_PointsMultiplier DEFAULT 1.0,
     CONSTRAINT PK_LoyaltyProgram_ProgramID PRIMARY KEY (ProgramID)
 );
 
 CREATE TABLE Customers.CustomerFeedback (
     FeedbackID INT IDENTITY(1,1),
     CustomerID INT NOT NULL,
-    FeedbackDate DATETIME DEFAULT GETDATE(),
+    FeedbackDate DATETIME CONSTRAINT DF_CustomerFeedback_FeedbackDate DEFAULT GETDATE(),
     Rating INT NOT NULL,
     Comments NVARCHAR(500),
     CONSTRAINT PK_CustomerFeedback_FeedbackID PRIMARY KEY (FeedbackID),
@@ -128,9 +128,9 @@ CREATE TABLE Inventory.FlightRoute (
 CREATE TABLE Inventory.MaintenanceLog (
     LogID INT IDENTITY(1,1),
     FlightID INT NOT NULL,
-    MaintenanceDate DATETIME DEFAULT GETDATE(),
+    MaintenanceDate DATETIME CONSTRAINT DF_MaintenanceLog_MaintenanceDate DEFAULT GETDATE(),
     Description NVARCHAR(500),
-    MaintenanceStatus NVARCHAR(20) DEFAULT 'Pending',
+    MaintenanceStatus NVARCHAR(20) CONSTRAINT DF_MaintenanceLog_MaintenanceStatus DEFAULT 'Pending',
     CONSTRAINT PK_MaintenanceLog_LogID PRIMARY KEY (LogID),
     CONSTRAINT FK_MaintenanceLog_FlightID FOREIGN KEY (FlightID) REFERENCES Inventory.Flight(FlightID)
 );
@@ -141,8 +141,8 @@ CREATE TABLE Sales.Orders (
     OrderID INT IDENTITY(1,1),
     CustomerID INT NOT NULL,
     FlightID INT NOT NULL,
-    OrderDate DATETIME DEFAULT GETDATE(),
-    Status NVARCHAR(20) DEFAULT 'Pending',
+    OrderDate DATETIME CONSTRAINT DF_Orders_OrderDate DEFAULT GETDATE(),
+    Status NVARCHAR(20) CONSTRAINT DF_Orders_Status DEFAULT 'Pending',
     TotalAmount DECIMAL(10, 2),
     TicketQuantity INT,
     CONSTRAINT PK_Orders_OrderID PRIMARY KEY (OrderID),
@@ -163,7 +163,7 @@ CREATE TABLE Sales.DiscountCode (
 CREATE TABLE Sales.OrderAuditLog (
     AuditID INT IDENTITY(1,1),
     OrderID INT NOT NULL,
-    ChangeDate DATETIME DEFAULT GETDATE(),
+    ChangeDate DATETIME CONSTRAINT DF_OrderAuditLog_ChangeDate DEFAULT GETDATE(),
     ChangeDescription NVARCHAR(500),
     CONSTRAINT PK_OrderAuditLog_AuditID PRIMARY KEY (AuditID),
     CONSTRAINT FK_OrderAuditLog_OrderID FOREIGN KEY (OrderID) REFERENCES Sales.Orders(OrderID)
@@ -362,14 +362,14 @@ CREATE TABLE Customers.Customer (
 CREATE TABLE Customers.LoyaltyProgram (
     ProgramID INT IDENTITY(1,1),
     ProgramName NVARCHAR(50) NOT NULL,
-    PointsMultiplier DECIMAL(3, 2) DEFAULT 1.0,
+    PointsMultiplier DECIMAL(3, 2) CONSTRAINT DF_LoyaltyProgram_PointsMultiplier DEFAULT 1.0,
     CONSTRAINT PK_LoyaltyProgram_ProgramID PRIMARY KEY (ProgramID)
 );
 
 CREATE TABLE Customers.CustomerFeedback (
     FeedbackID INT IDENTITY(1,1),
     CustomerID INT NOT NULL,
-    FeedbackDate DATETIME DEFAULT GETDATE(),
+    FeedbackDate DATETIME CONSTRAINT DF_CustomerFeedback_FeedbackDate DEFAULT GETDATE(),
     Rating INT NOT NULL,
     Comments NVARCHAR(500),
     CONSTRAINT PK_CustomerFeedback_FeedbackID PRIMARY KEY (FeedbackID),
@@ -402,9 +402,9 @@ CREATE TABLE Inventory.FlightRoute (
 CREATE TABLE Inventory.MaintenanceLog (
     LogID INT IDENTITY(1,1),
     FlightID INT NOT NULL,
-    MaintenanceDate DATETIME DEFAULT GETDATE(),
+    MaintenanceDate DATETIME CONSTRAINT DF_MaintenanceLog_MaintenanceDate DEFAULT GETDATE(),
     Description NVARCHAR(500),
-    MaintenanceStatus NVARCHAR(20) DEFAULT 'Pending',
+    MaintenanceStatus NVARCHAR(20) CONSTRAINT DF_MaintenanceLog_MaintenanceStatus DEFAULT 'Pending',
     CONSTRAINT PK_MaintenanceLog_LogID PRIMARY KEY (LogID),
     CONSTRAINT FK_MaintenanceLog_FlightID FOREIGN KEY (FlightID) REFERENCES Inventory.Flight(FlightID)
 );
@@ -415,8 +415,8 @@ CREATE TABLE Sales.Orders (
     OrderID INT IDENTITY(1,1),
     CustomerID INT NOT NULL,
     FlightID INT NOT NULL,
-    OrderDate DATETIME DEFAULT GETDATE(),
-    Status NVARCHAR(20) DEFAULT 'Pending',
+    OrderDate DATETIME CONSTRAINT DF_Orders_OrderDate DEFAULT GETDATE(),
+    Status NVARCHAR(20) CONSTRAINT DF_Orders_Status DEFAULT 'Pending',
     TotalAmount DECIMAL(10, 2),
     TicketQuantity INT,
     CONSTRAINT PK_Orders_OrderID PRIMARY KEY (OrderID),
@@ -437,7 +437,7 @@ CREATE TABLE Sales.DiscountCode (
 CREATE TABLE Sales.OrderAuditLog (
     AuditID INT IDENTITY(1,1),
     OrderID INT NOT NULL,
-    ChangeDate DATETIME DEFAULT GETDATE(),
+    ChangeDate DATETIME CONSTRAINT DF_OrderAuditLog_ChangeDate DEFAULT GETDATE(),
     ChangeDescription NVARCHAR(500),
     CONSTRAINT PK_OrderAuditLog_AuditID PRIMARY KEY (AuditID),
     CONSTRAINT FK_OrderAuditLog_OrderID FOREIGN KEY (OrderID) REFERENCES Sales.Orders(OrderID)
@@ -636,14 +636,14 @@ CREATE TABLE Customers.Customer (
 CREATE TABLE Customers.LoyaltyProgram (
     ProgramID INT IDENTITY(1,1),
     ProgramName NVARCHAR(50) NOT NULL,
-    PointsMultiplier DECIMAL(3, 2) DEFAULT 1.0,
+    PointsMultiplier DECIMAL(3, 2) CONSTRAINT DF_LoyaltyProgram_PointsMultiplier DEFAULT 1.0,
     CONSTRAINT PK_LoyaltyProgram_ProgramID PRIMARY KEY (ProgramID)
 );
 
 CREATE TABLE Customers.CustomerFeedback (
     FeedbackID INT IDENTITY(1,1),
     CustomerID INT NOT NULL,
-    FeedbackDate DATETIME DEFAULT GETDATE(),
+    FeedbackDate DATETIME CONSTRAINT DF_CustomerFeedback_FeedbackDate DEFAULT GETDATE(),
     Rating INT NOT NULL,
     Comments NVARCHAR(500),
     CONSTRAINT PK_CustomerFeedback_FeedbackID PRIMARY KEY (FeedbackID),
@@ -676,9 +676,9 @@ CREATE TABLE Inventory.FlightRoute (
 CREATE TABLE Inventory.MaintenanceLog (
     LogID INT IDENTITY(1,1),
     FlightID INT NOT NULL,
-    MaintenanceDate DATETIME DEFAULT GETDATE(),
+    MaintenanceDate DATETIME CONSTRAINT DF_MaintenanceLog_MaintenanceDate DEFAULT GETDATE(),
     Description NVARCHAR(500),
-    MaintenanceStatus NVARCHAR(20) DEFAULT 'Pending',
+    MaintenanceStatus NVARCHAR(20) CONSTRAINT DF_MaintenanceLog_MaintenanceStatus DEFAULT 'Pending',
     CONSTRAINT PK_MaintenanceLog_LogID PRIMARY KEY (LogID),
     CONSTRAINT FK_MaintenanceLog_FlightID FOREIGN KEY (FlightID) REFERENCES Inventory.Flight(FlightID)
 );
@@ -689,8 +689,8 @@ CREATE TABLE Sales.Orders (
     OrderID INT IDENTITY(1,1),
     CustomerID INT NOT NULL,
     FlightID INT NOT NULL,
-    OrderDate DATETIME DEFAULT GETDATE(),
-    Status NVARCHAR(20) DEFAULT 'Pending',
+    OrderDate DATETIME CONSTRAINT DF_Orders_OrderDate DEFAULT GETDATE(),
+    Status NVARCHAR(20) CONSTRAINT DF_Orders_Status DEFAULT 'Pending',
     TotalAmount DECIMAL(10, 2),
     TicketQuantity INT,
     CONSTRAINT PK_Orders_OrderID PRIMARY KEY (OrderID),
@@ -711,7 +711,7 @@ CREATE TABLE Sales.DiscountCode (
 CREATE TABLE Sales.OrderAuditLog (
     AuditID INT IDENTITY(1,1),
     OrderID INT NOT NULL,
-    ChangeDate DATETIME DEFAULT GETDATE(),
+    ChangeDate DATETIME CONSTRAINT DF_OrderAuditLog_ChangeDate DEFAULT GETDATE(),
     ChangeDescription NVARCHAR(500),
     CONSTRAINT PK_OrderAuditLog_AuditID PRIMARY KEY (AuditID),
     CONSTRAINT FK_OrderAuditLog_OrderID FOREIGN KEY (OrderID) REFERENCES Sales.Orders(OrderID)
@@ -911,14 +911,14 @@ CREATE TABLE Customers.Customer (
 CREATE TABLE Customers.LoyaltyProgram (
     ProgramID INT IDENTITY(1,1),
     ProgramName NVARCHAR(50) NOT NULL,
-    PointsMultiplier DECIMAL(3, 2) DEFAULT 1.0,
+    PointsMultiplier DECIMAL(3, 2) CONSTRAINT DF_LoyaltyProgram_PointsMultiplier DEFAULT 1.0,
     CONSTRAINT PK_LoyaltyProgram_ProgramID PRIMARY KEY (ProgramID)
 );
 
 CREATE TABLE Customers.CustomerFeedback (
     FeedbackID INT IDENTITY(1,1),
     CustomerID INT NOT NULL,
-    FeedbackDate DATETIME DEFAULT GETDATE(),
+    FeedbackDate DATETIME CONSTRAINT DF_CustomerFeedback_FeedbackDate DEFAULT GETDATE(),
     Rating INT NOT NULL,
     Comments NVARCHAR(500),
     CONSTRAINT PK_CustomerFeedback_FeedbackID PRIMARY KEY (FeedbackID),
@@ -951,9 +951,9 @@ CREATE TABLE Inventory.FlightRoute (
 CREATE TABLE Inventory.MaintenanceLog (
     LogID INT IDENTITY(1,1),
     FlightID INT NOT NULL,
-    MaintenanceDate DATETIME DEFAULT GETDATE(),
+    MaintenanceDate DATETIME CONSTRAINT DF_MaintenanceLog_MaintenanceDate DEFAULT GETDATE(),
     Description NVARCHAR(500),
-    MaintenanceStatus NVARCHAR(20) DEFAULT 'Pending',
+    MaintenanceStatus NVARCHAR(20) CONSTRAINT DF_MaintenanceLog_MaintenanceStatus DEFAULT 'Pending',
     CONSTRAINT PK_MaintenanceLog_LogID PRIMARY KEY (LogID),
     CONSTRAINT FK_MaintenanceLog_FlightID FOREIGN KEY (FlightID) REFERENCES Inventory.Flight(FlightID)
 );
@@ -964,7 +964,7 @@ CREATE TABLE Inventory.TempFlightCache (
     FlightID INT,
     CachedPrice DECIMAL(10, 2),
     CachedSeats INT,
-    CacheDate DATETIME DEFAULT GETDATE(),
+    CacheDate DATETIME CONSTRAINT DF_TempFlightCache_CacheDate DEFAULT GETDATE(),
     CONSTRAINT PK_TempFlightCache PRIMARY KEY (CacheID)
 );
 GO
@@ -974,8 +974,8 @@ CREATE TABLE Sales.Orders (
     OrderID INT IDENTITY(1,1),
     CustomerID INT NOT NULL,
     FlightID INT NOT NULL,
-    OrderDate DATETIME DEFAULT GETDATE(),
-    Status NVARCHAR(20) DEFAULT 'Pending',
+    OrderDate DATETIME CONSTRAINT DF_Orders_OrderDate DEFAULT GETDATE(),
+    Status NVARCHAR(20) CONSTRAINT DF_Orders_Status DEFAULT 'Pending',
     TotalAmount DECIMAL(10, 2),
     TicketQuantity INT,
     CONSTRAINT PK_Orders_OrderID PRIMARY KEY (OrderID),
@@ -996,7 +996,7 @@ CREATE TABLE Sales.DiscountCode (
 CREATE TABLE Sales.OrderAuditLog (
     AuditID INT IDENTITY(1,1),
     OrderID INT NOT NULL,
-    ChangeDate DATETIME DEFAULT GETDATE(),
+    ChangeDate DATETIME CONSTRAINT DF_OrderAuditLog_ChangeDate DEFAULT GETDATE(),
     ChangeDescription NVARCHAR(500),
     CONSTRAINT PK_OrderAuditLog_AuditID PRIMARY KEY (AuditID),
     CONSTRAINT FK_OrderAuditLog_OrderID FOREIGN KEY (OrderID) REFERENCES Sales.Orders(OrderID)
