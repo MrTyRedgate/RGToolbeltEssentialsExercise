@@ -180,7 +180,8 @@ To ensure SSMS can connect to SQL Server Express:
 
 7. Review the script and deploy the changes
 
-8. Now repeat the process to deploy those changes to `SimpleDB_Prod` as well
+8. Now repeat the process to deploy those changes to `SimpleDB_Prod` as well.
+ **NB** Did you notice anything about Prod that was concerning?
 
 ---
 
