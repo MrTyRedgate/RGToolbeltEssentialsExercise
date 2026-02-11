@@ -15,7 +15,11 @@ Welcome to the SQL Toolbelt Essentials practical exercise. This guide will walk 
 
 2. Click the green **Code** button, then select **Download ZIP**
 
-3. Extract the contents to: `C:\Temp\ToolbeltEssentialsExercise\`
+3. Create the folder `C:\Temp\ToolbeltEssentialsExercise\`
+
+4. Copy the downloaded ZIP file into `C:\Temp\ToolbeltEssentialsExercise\`
+
+5. Extract the contents of the ZIP file into this folder
 
 ### Step 2: Connect to SQL Server
 
@@ -45,6 +49,8 @@ Welcome to the SQL Toolbelt Essentials practical exercise. This guide will walk 
    - `SimpleDB_Test`
    - `SimpleDB_Prod`
 
+6. **Optional:** To clean up the view, right-click on the **Databases** folder, select **Filter > Filter Settings**, set the Name filter to `Simple`, and click **OK**. This limits the view to only the newly created databases.
+
 ## Exercise Goals
 
 By the end of this exercise, you will be familiar with:
@@ -72,7 +78,7 @@ By the end of this exercise, you will be familiar with:
 3. Choose your source control system (Git, TFS, SVN, etc.) or **"Just let me try it out"** for a Demo
 4. Select a repository folder
 5. Click **Link**
-6. Observe how database objects appear as scripts in source control
+6. Observe how database objects appear as scripts in source control in the Commit tab
 7. **Commit** all objects to version control as your initial baseline - think of a meaningful commit message (e.g., "Initial database schema")
 
 ---
@@ -89,7 +95,7 @@ By the end of this exercise, you will be familiar with:
 
 4. See the new changes appear (the Socials table, ListSocials stored procedure, and WorkPhone column)
 
-5. Select and **Commit** all your changes to version control
+5. Select and **Commit** all your changes to version control using a relavent commit message
 
 ---
 
@@ -107,14 +113,15 @@ By the end of this exercise, you will be familiar with:
 
 4. Review the differences - you should see the changes you made in Exercise B
 
-5. Select the objects to deploy
+5. Select all the new objects to deploy
 
-6. Generate a deployment script to sync `Test`
+6. Click **Deploy** and then **Deploy using SQL Compare** and Next using other defaults
 
 7. Review the script and deploy the changes
 
-8. Now repeat the process to deploy those changes to `SimpleDB_Prod` as well.
- **NB** Did you notice anything about Prod that was concerning?
+8. Now repeat the process to deploy those changes to `SimpleDB_Prod` but beware!
+ **NB** Did you notice anything about Prod that was concerning? You should have spotted the Drift, don't Deploy to Prod
+ Skip to ### Bonus Exercise 2 to fix the drift first then return to this step
 
 ---
 
@@ -150,7 +157,7 @@ By the end of this exercise, you will be familiar with:
 
 ---
 
-### Bonus Exercise: Link Dev2 to the Same Repository
+### Bonus Exercise 1: Link Dev2 to the Same Repository
 
 **Objective:** Link a second database to an existing source control repository and sync changes
 
@@ -158,7 +165,7 @@ By the end of this exercise, you will be familiar with:
 
 2. Select **SQL Source Control > Link Database to Source Control...**
 
-3. Link it to the **same repository folder** you used for `SimpleDB_Dev1`
+3. Link it to the **same repository folder** you used for `SimpleDB_Dev1` which is an **existing** repository
 
 4. Once linked, go to the **Get Latest** tab
 
@@ -168,7 +175,7 @@ By the end of this exercise, you will be familiar with:
 
 ---
 
-### Bonus Exercise: Rescue Prod Drift into Source Control
+### Bonus Exercise 2: Rescue Prod Drift into Source Control
 
 **Objective:** Bring untracked production changes back under version control
 
@@ -189,13 +196,15 @@ In Exercise C, you may have noticed Prod has some unexpected differences. This s
 5. **Decide what to do:**
    - Is the `LastLoginDate` column valuable? (Yes - security team needs it)
    - Is `TempFlightCache` needed? (No - it's leftover from an old report)
-
+   
 6. Select only `Customers.Customer` and deploy to Dev1
+- You will have noticed that column `WorkPhone` would have been dropped from Dev1 by SQL Compare so you need to add it back, use the Exercises.sql to add just `WorkPhone` back. Select the code block for this and execute, taking care not to rerun the whole exercises script.
 
 7. Return to SQL Source Control and **commit** the rescued change
 
 8. Now your source control reflects the legitimate production change, and you can clean up the unnecessary `TempFlightCache` table from Prod later
 
+9. Now go and finish of your Prod deployment as the Drift is repaired 
 ---
 
 ## Database Schema Overview
