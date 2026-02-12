@@ -232,8 +232,8 @@ Each sample database contains:
 |------|---------|--------|
 | SQL Source Control | Version control for databases | SSMS > Right-click database |
 | SQL Compare | Schema comparison & sync | Start Menu or SSMS Tools |
-| Dependency Tracker | Visualize object relationships | Start Menu |
-| SQL Doc | Generate documentation | Start Menu |
+| Dependency Tracker | Visualize object relationships | Start Menu or SSMS > Right-click database |
+| SQL Doc | Generate documentation | Start Menu or SSMS > Right-click database |
 
 ---
 
